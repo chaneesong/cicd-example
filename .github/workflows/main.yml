@@ -54,21 +54,19 @@ jobs:
           tags: ${{ env.DOCKER_IMAGE }}:latest
 
   deploy:
-    needs: build
+    needs: build 
     name: Deploy
-    runs-on: [self-hosted, label-go]
-
+    runs-on: [ self-hosted, label-go ] 
     steps:
-      - name: Login to Gihub Container Registry
-        uses: docker/login-action@v3
+      - name: Login to ghcr
+        uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Docker run
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -dp 80:3000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker run -d -p 80:3000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
 
 
