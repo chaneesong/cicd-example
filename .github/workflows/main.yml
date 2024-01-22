@@ -61,6 +61,13 @@ jobs:
           push: true
           tags: ${{ env.DOCKER_IMAGE }}:latest
 
+      - name: ls
+        run: |
+          ls
+          ls src
+          ls src/config
+          cat src/config/env/.production.env
+
   deploy:
     needs: build
     name: Deploy
