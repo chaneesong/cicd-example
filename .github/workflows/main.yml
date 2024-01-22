@@ -28,9 +28,11 @@ jobs:
         env:
           ENV: ${{ secrets.NEST_ENV }}
         run: |
-          ls
           mkdir -p config/env && touch config/env/.production.env
           echo $ENV >> config/env/.production.env
+
+      - name: ls
+        run: ls
 
       - name: Set up docker buildx
         id: buildx
