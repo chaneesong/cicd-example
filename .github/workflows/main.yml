@@ -26,7 +26,7 @@ jobs:
       - name: Insert ENV
         working-directory: ${{ env.ENV_PATH }}
         env:
-          ENV: ${{ secrets.ENV }}
+          ENV: ${{ secrets.NEST_ENV }}
         run: |
           mkdir -p config/env && touch config/env/.production.env
           echo $ENV >> config/env/.production.env
