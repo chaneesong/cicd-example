@@ -32,7 +32,7 @@ jobs:
           echo $ENV >> config/env/.production.env
 
       - name: ls
-        run: ls
+        run: ls src
 
       - name: Set up docker buildx
         id: buildx
