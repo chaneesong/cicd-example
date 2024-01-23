@@ -1,14 +1,12 @@
 FROM node:18
 
-RUN mkdir -p /home/server
-WORKDIR /home/server
-COPY . /home/server/
+RUN mkdir -p /app
+WORKDIR /app
+COPY . /app/
 
 RUN rm yarn.lock || true
 RUN rm package-lock.json || true
-RUN mkdir -p /home/server/src/config/env && touch /home/server/src/config/env/.production.env
-RUN --mount=type=secret,id=nest_env,target=/home/server/config/env/.production.env
-
+RUN mkdir -p src/config/env
 RUN yarn
 RUN yarn build
 
