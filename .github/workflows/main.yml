@@ -23,17 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Insert ENV
-        working-directory: ${{ env.ENV_PATH }}
-        run: |
-          mkdir -p config/env && touch config/env/.production.env
-          echo "${{ secrets.NEST_ENV }}" >> config/env/.production.env
-
-      - name: ls
-        run: |
-          ls src
-          ls src/config
-
       - name: Set up docker buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -60,13 +49,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ env.DOCKER_IMAGE }}:latest
-
-      - name: ls
-        run: |
-          ls
-          ls src
-          ls src/config
-          cat src/config/env/.production.env
+          secrets: |
+            "nest_env=${{ secrets.NEST_ENV }}"
 
   deploy:
     needs: build
