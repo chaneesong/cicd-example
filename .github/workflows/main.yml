@@ -70,5 +70,5 @@ jobs:
           mkdir -p config/env && touch config/env/.production.env
           echo $nest_env >> config/env/.production.env
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -v "$pwd/config/env.production.env:/app/src/config/env/.production.env" \
+          docker run -v "$pwd/config/env:/app/src/config/env" \
            -d -p 3000:3000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
