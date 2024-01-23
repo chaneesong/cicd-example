@@ -9,14 +9,9 @@ RUN rm package-lock.json || true
 
 
 
-# RUN --mount=type=secret,id=nest_env \
-#   mkdir -p /home/server/src/config/env && touch /home/server/src/config/env/.production.env \
-#   cat /run/secrets/nest_env >> /home/server/src/config/env/.production.env
-
-RUN --mount=type=secret,id=nest_env
-COPY --chown=node:node /run/secrets/nest_env /tmp/nest_env
-RUN mkdir -p /home/server/src/config/env && touch /home/server/src/config/env/.production.env \
-  && cat /tmp/nest_env >> /home/server/src/config/env/.production.env
+RUN --mount=type=secret,id=nest_env ls /run/secrets
+RUN mkdir -p /home/server/src/config/env && touch /home/server/src/config/env/.production.env
+RUN cat /run/secrets/nest_env >> /home/server/src/config/env/.production.env
 
 RUN yarn
 RUN yarn build
