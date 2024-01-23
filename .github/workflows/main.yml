@@ -50,7 +50,7 @@ jobs:
           context: .
           push: true
           tags: ${{ env.DOCKER_IMAGE }}:latest
-          secrets: |
+          secret-files: |
             "nest_env=${{ secrets.NEST_ENV }}"
 
   deploy:
