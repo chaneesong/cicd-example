@@ -68,7 +68,7 @@ jobs:
         run: |
           echo pwd = $pwd
           absolute_path=$(realpath "${{ github.workspace }}")
-          touch .production.env
-          echo $nest_env >> .production.env
+          mkdir env && touch env/.production.env
+          echo $nest_env >> env/.production.env
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -v $absolute_path/.production.env:/app/dist/config/env -d -p 3000:3000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker run -v $absolute_path/env:/app/dist/config/env -d -p 3000:3000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
