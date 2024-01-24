@@ -8,9 +8,8 @@ RUN rm yarn.lock || true
 RUN rm package-lock.json || true
 RUN yarn
 RUN yarn build
-RUN mkdir -p /app/dist/config/env
 
 ENV HOST 0.0.0.0
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["mkdir", "-p", "/app/dist/config/env", "&&", "yarn", "start"]
