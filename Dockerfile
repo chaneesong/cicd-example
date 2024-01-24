@@ -6,7 +6,6 @@ COPY . /app/
 
 RUN rm yarn.lock || true
 RUN rm package-lock.json || true
-RUN mkdir -p src/config/env
 RUN yarn
 RUN yarn build
 
